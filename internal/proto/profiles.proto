@@ -1,0 +1,72 @@
+syntax = "proto3";
+
+package auth;
+
+option go_package = "github.com/vindosVP/profilesv1";
+
+message Profile {
+  int64 userId = 1;
+  optional string firstName = 2;
+  optional string lastName = 3;
+  optional string description = 4;
+  optional string phoneNumber = 5;
+  optional string city = 6;
+  optional string photoUUID = 7;
+}
+
+message PutProfile {
+  optional string firstName = 1;
+  optional string lastName = 2;
+  optional string description = 3;
+  optional string phoneNumber = 4;
+  optional string city = 5;
+}
+
+message SetPhotoRequest {
+  int64 userId = 1;
+  optional string photoUUID = 2;
+}
+
+message SetPhotoResponse {
+  optional string photoUUID = 1;
+}
+
+message ProfileRequest {
+  int64 userId = 1;
+}
+
+message ProfileResponse {
+  Profile profile = 1;
+}
+
+message ProfilesRequest {
+}
+
+message ProfilesResponse {
+  repeated Profile profiles = 1;
+}
+
+message PutProfileRequest {
+  int64 userId = 1;
+  PutProfile profile = 2;
+}
+
+message PutProfileResponse {
+  Profile profile = 1;
+}
+
+message CreateProfileRequest {
+  Profile profile = 1;
+}
+
+message CreateProfileResponse {
+  Profile profile = 1;
+}
+
+service Profiles {
+  rpc GetProfile(ProfileRequest) returns (ProfileResponse);
+  rpc GetProfiles(ProfilesRequest) returns (ProfilesResponse);
+  rpc CreateProfile(CreateProfileRequest) returns (CreateProfileResponse);
+  rpc PutProfile(PutProfileRequest) returns (PutProfileResponse);
+  rpc SetPhoto(SetPhotoRequest) returns (SetPhotoResponse);
+}
